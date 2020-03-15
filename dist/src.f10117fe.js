@@ -135,6 +135,11 @@ function () {
     return this.data[propName];
   };
 
+  User.prototype.set = function (update) {
+    // Overwrite this.data with new updated object.
+    Object.assign(this.data, update);
+  };
+
   return User;
 }();
 
@@ -151,6 +156,10 @@ var User_1 = require("./models/User");
 var user = new User_1.User({
   name: 'theKing',
   age: 20
+});
+user.set({
+  name: 'newKing',
+  age: 666
 });
 console.log(user.get('name'));
 console.log(user.get('age'));
