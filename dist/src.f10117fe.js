@@ -129,6 +129,7 @@ var User =
 function () {
   function User(data) {
     this.data = data;
+    this.events = {};
   }
 
   User.prototype.get = function (propName) {
@@ -138,6 +139,12 @@ function () {
   User.prototype.set = function (update) {
     // Overwrite this.data with new updated object.
     Object.assign(this.data, update);
+  };
+
+  User.prototype.on = function (eventName, callback) {
+    var handlers = this.events[eventName] || [];
+    handlers.push(callback);
+    this.events[eventName] = handlers;
   };
 
   return User;
@@ -157,12 +164,10 @@ var user = new User_1.User({
   name: 'theKing',
   age: 20
 });
-user.set({
-  name: 'newKing',
-  age: 666
+user.on('change', function () {
+  console.log("hejhoppla");
 });
-console.log(user.get('name'));
-console.log(user.get('age'));
+console.log(user);
 },{"./models/User":"src/models/User.ts"}],"../../../../../usr/local/lib/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

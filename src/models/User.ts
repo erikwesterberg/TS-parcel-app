@@ -3,7 +3,10 @@ interface UserProps {
   age?: number;
 }
 
+type Callback = () => void
 export class User {
+  events: { [key: string] : Callback[] } = {}
+
   constructor(private data: UserProps) {}
 
   get(propName: string): (string | number) {
@@ -13,5 +16,12 @@ export class User {
   set(update: UserProps): void {
     // Overwrite this.data with new updated object.
     Object.assign(this.data, update)
+  }
+
+  on(eventName: string, callback: Callback): void {
+      const handlers = this.events[eventName] || [];
+      handlers.push(callback)
+      this.events[eventName] = handlers
+
   }
 }
