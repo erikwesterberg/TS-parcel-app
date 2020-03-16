@@ -14,7 +14,7 @@ export class User {
   }
   
   set(update: UserProps): void {
-    // Overwrite this.data with new updated object.
+    // Overwrite this.data wi th new updated object.
     Object.assign(this.data, update)
   }
 
@@ -22,6 +22,17 @@ export class User {
       const handlers = this.events[eventName] || [];
       handlers.push(callback)
       this.events[eventName] = handlers
+  }
+ 
+  trigger(eventName: string): void {
+    const handlers = this.events[eventName]
 
+    if(!handlers || handlers.length === 0) {
+      return
+    }
+
+    handlers.forEach(callback => (
+      callback()
+    ))
   }
 }

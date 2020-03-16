@@ -5,6 +5,13 @@ import { User } from './models/User'
 user.on('change', () => {
   console.log("hejhoppla")
 })
- 
 
-console.log(user)
+user.on('sdf', () => {
+  console.log("hejhoppla2")
+})
+
+user.on('noob', () => {
+  console.log("hejhoppla3")
+})
+
+user.trigger('change')
